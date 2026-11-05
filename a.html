@@ -1,503 +1,267 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Talaba roʻyxatdan oʻtish shakli</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg1: #0f0a2e;
-    --bg2: #1b1050;
-    --violet: #8b5cf6;
-    --pink: #ec4899;
-    --cyan: #22d3ee;
-    --text: #f4f2ff;
-    --muted: #a9a3d6;
-    --glass: rgba(255, 255, 255, 0.07);
-    --line: rgba(255, 255, 255, 0.16);
-    --radius: 14px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Drop Cream — handcrafted ice cream.">
+  <title>Drop Cream | Red Flower Ice-Cream</title>
 
-  body {
-    min-height: 100vh;
-    font-family: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
-    color: var(--text);
-    background: radial-gradient(circle at 20% 10%, var(--bg2), var(--bg1) 60%);
-    display: flex;
-    justify-content: center;
-    padding: 48px 16px;
-    overflow-x: hidden;
-    position: relative;
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  /* Suzib yuruvchi rangli dog'lar */
-  body::before, body::after {
-    content: "";
-    position: fixed;
-    width: 460px; height: 460px;
-    border-radius: 50%;
-    filter: blur(110px);
-    opacity: .55;
-    z-index: 0;
-    animation: float 14s ease-in-out infinite alternate;
-  }
-  body::before { background: var(--violet); top: -120px; left: -120px; }
-  body::after  { background: var(--pink); bottom: -140px; right: -120px; animation-delay: -7s; }
-  @keyframes float {
-    to { transform: translate(90px, 70px) scale(1.15); }
-  }
-
-  .card {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 720px;
-    padding: 44px 40px 36px;
-    background: var(--glass);
-    border: 1px solid var(--line);
-    border-radius: 28px;
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255,255,255,.15);
-    animation: rise .8s cubic-bezier(.2,.8,.2,1) both;
-  }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(30px) scale(.98); }
-  }
-
-  h1 {
-    text-align: center;
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
-    font-weight: 800;
-    letter-spacing: -.02em;
-    background: linear-gradient(90deg, #fff, var(--cyan) 50%, var(--pink));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .sub {
-    text-align: center;
-    color: var(--muted);
-    font-size: .95rem;
-    margin: 8px 0 34px;
-  }
-
-  .row {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 18px;
-  }
-  .row.top { align-items: start; }
-  .row.top > label { padding-top: 14px; }
-
-  label, .label {
-    font-size: .92rem;
-    font-weight: 500;
-    color: var(--muted);
-  }
-
-  .inline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .inline .sep { color: var(--muted); }
-  .inline input { flex: 1; min-width: 90px; }
-  .inline input.sm { flex: 0 0 74px; min-width: 0; text-align: center; }
-  .inline input.xs { flex: 0 0 74px; min-width: 0; }
-  .hint { font-size: .8rem; color: var(--muted); font-style: italic; }
-
-  input[type="text"], input[type="email"], input[type="password"],
-  input[type="tel"], input[type="number"], select, textarea {
-    width: 100%;
-    padding: 13px 16px;
-    font: inherit;
-    font-size: .95rem;
-    color: var(--text);
-    background: rgba(255, 255, 255, .06);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    outline: none;
-    transition: border-color .25s, box-shadow .25s, background .25s;
-  }
-  ::placeholder { color: rgba(200, 195, 240, .45); }
-  input:hover, select:hover, textarea:hover { background: rgba(255, 255, 255, .1); }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--violet);
-    background: rgba(139, 92, 246, .12);
-    box-shadow: 0 0 0 4px rgba(139, 92, 246, .28), 0 0 24px rgba(139, 92, 246, .35);
-  }
-  textarea { min-height: 120px; resize: vertical; }
-  select option { background: #1b1050; color: #fff; }
-  input[type=number]::-webkit-inner-spin-button { display: none; }
-
-  /* Gender va Department — chip ko'rinishida */
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
-  .chips input { position: absolute; opacity: 0; pointer-events: none; }
-  .chips label {
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: rgba(255, 255, 255, .05);
-    color: var(--text);
-    font-size: .9rem;
-    transition: all .25s;
-    user-select: none;
-  }
-  .chips label:hover { transform: translateY(-2px); border-color: var(--cyan); }
-  .chips input:checked + label {
-    background: linear-gradient(135deg, var(--violet), var(--pink));
-    border-color: transparent;
-    box-shadow: 0 8px 22px rgba(236, 72, 153, .4);
-    transform: translateY(-2px);
-  }
-  .chips input:focus-visible + label { outline: 2px solid var(--cyan); outline-offset: 3px; }
-
-  /* Rasm yuklash */
-  input[type="file"] { display: none; }
-  .upload {
-    display: flex; align-items: center; gap: 14px;
-    padding: 12px 16px;
-    border: 1.5px dashed var(--line);
-    border-radius: var(--radius);
-    cursor: pointer;
-    color: var(--muted);
-    font-size: .9rem;
-    transition: all .25s;
-  }
-  .upload:hover { border-color: var(--cyan); background: rgba(34, 211, 238, .08); color: var(--text); }
-  .upload b {
-    padding: 8px 16px; border-radius: 10px;
-    background: rgba(34, 211, 238, .18);
-    color: var(--cyan); font-weight: 600;
-  }
-
-  /* Tugma */
-  .actions { margin-top: 30px; text-align: center; }
-  button {
-    font: inherit;
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: #fff;
-    padding: 16px 60px;
-    border: 0;
-    border-radius: 999px;
-    cursor: pointer;
-    background: linear-gradient(120deg, var(--violet), var(--pink), var(--cyan));
-    background-size: 220% 100%;
-    box-shadow: 0 14px 34px rgba(139, 92, 246, .5);
-    transition: background-position .6s, transform .2s, box-shadow .2s;
-  }
-  button:hover {
-    background-position: 100% 0;
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 20px 44px rgba(236, 72, 153, .5);
-  }
-  button:active { transform: scale(.97); }
-  button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
-
-  /* Musiqa tugmasi */
-  .music {
-    position: fixed; right: 22px; bottom: 22px; z-index: 5;
-    width: 58px; height: 58px; padding: 0;
-    display: grid; place-items: center;
-    font-size: 1.5rem;
-    border-radius: 50%;
-    background: var(--glass);
-    border: 1px solid var(--line);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 10px 30px rgba(0,0,0,.4);
-  }
-  .music:hover { transform: scale(1.1); background: rgba(139,92,246,.35); }
-  .music.playing {
-    background: linear-gradient(135deg, var(--violet), var(--pink));
-    animation: pulse 1.6s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    50% { box-shadow: 0 0 0 14px rgba(236,72,153,.0), 0 0 34px rgba(236,72,153,.7); }
-  }
-
-  /* Musiqa menyusi */
-  .menu {
-    position: fixed; right: 22px; bottom: 92px; z-index: 5;
-    width: 230px; padding: 10px;
-    display: none; flex-direction: column; gap: 6px;
-    background: rgba(20, 12, 60, .85);
-    border: 1px solid var(--line); border-radius: 18px;
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 20px 50px rgba(0,0,0,.5);
-  }
-  .menu.open { display: flex; animation: rise .3s both; }
-  .menu .title { padding: 6px 10px 8px; font-size: .78rem; color: var(--muted); }
-  .opt {
-    width: 100%; padding: 10px 12px; text-align: left;
-    font: inherit; font-size: .88rem; font-weight: 500; color: var(--text);
-    background: transparent; border: 1px solid transparent; border-radius: 12px;
-    box-shadow: none; transform: none;
-  }
-  .opt small { display: block; color: var(--muted); font-weight: 400; font-size: .74rem; margin-top: 2px; }
-  .opt:hover { background: rgba(255,255,255,.1); transform: none; box-shadow: none; }
-  .opt.active { background: linear-gradient(135deg, rgba(139,92,246,.55), rgba(236,72,153,.45)); border-color: var(--line); }
-
-  @media (max-width: 600px) {
-    .card { padding: 32px 20px 28px; border-radius: 22px; }
-    .row { grid-template-columns: 1fr; gap: 8px; }
-    .row.top > label { padding-top: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-  }
-</style>
+  <link rel="stylesheet" href="f.css">
 </head>
 <body>
 
-<form class="card" action="#" method="post">
-  <h1>Talaba roʻyxatdan oʻtish shakli</h1>
-  <p class="sub">Maʼlumotlaringizni kiriting va roʻyxatdan oʻting</p>
+<main class="page-shell">
 
-  <div class="row">
-    <label for="roll">Talaba raqami</label>
-    <input type="text" id="roll" name="roll" placeholder="Masalan: 2024-0152">
-  </div>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-  <div class="row">
-    <label for="fname">Ism va familiya</label>
-    <div class="inline">
-      <input type="text" id="fname" name="fname" placeholder="Ism">
-      <span class="sep">–</span>
-      <input type="text" id="lname" name="lname" placeholder="Familiya" aria-label="Familiya">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a class="brand" href="#">
+      <img src="./ice-cream-cone 1 (1).png" alt="Drop Cream" class="brand-logo">
+      <span>Drop<br>Cream</span>
+    </a>
+
+    <nav class="nav-links">
+      <a class="active" href="#home">Home</a>
+      <a href="#about">Know Us</a>
+      <a href="#menu">Close By</a>
+      <button class="search-btn" aria-label="Search">⌕</button>
+    </nav>
+
+    <button class="menu-btn" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+
+    <img
+      class="hero-scoop"
+      src="./assets/hero-strawberry.png"
+      alt="Red strawberry ice cream"
+    >
+
+    <div class="hero-copy">
+      <p class="eyebrow">A little scoop of happiness</p>
+
+      <h1>Red Flower<br>Ice-cream</h1>
+
+      <p class="intro">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-outline" href="#menu">Order Now</a>
+        <a class="btn btn-glass" href="#menu">Book Table</a>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <label for="father">Otasining ismi</label>
-    <input type="text" id="father" name="father">
-  </div>
+    <!-- REVIEW -->
+    <aside class="review-card" id="about">
+      <span class="review-dot"></span>
+      <div class="avatar">👨🏻‍🍳</div>
 
-  <div class="row">
-    <label for="day">Tugʻilgan sana</label>
-    <div class="inline">
-      <input type="number" class="sm" id="day" name="day" placeholder="Kun" min="1" max="31">
-      <span class="sep">–</span>
-      <input type="number" class="sm" name="month" placeholder="Oy" min="1" max="12" aria-label="Oy">
-      <span class="sep">–</span>
-      <input type="number" class="xs" name="year" placeholder="Yil" min="1950" max="2025" aria-label="Yil">
-      <span class="hint">(KK-OO-YYYY)</span>
+      <div>
+        <strong>Uzi Nexus</strong>
+        <div class="stars">★★★★★</div>
+        <p>Indulge in frozen bliss with our irresistible ice cream delights!</p>
+      </div>
+    </aside>
+
+    <!-- TYPE PICKER -->
+    <div class="type-picker">
+      <span>Choose Type:</span>
+
+      <div class="type-icons">
+        <button class="type-icon selected">♨</button>
+        <button class="type-icon">❀</button>
+        <button class="type-icon">♟</button>
+        <button class="type-icon">＋</button>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <label for="mobile">Telefon raqami</label>
-    <div class="inline">
-      <input type="text" class="sm" value="+998" name="code" aria-label="Davlat kodi">
-      <span class="sep">–</span>
-      <input type="tel" id="mobile" name="mobile" placeholder="90 123 45 67">
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="menu-section" id="menu">
+
+    <div class="trending">
+      Trending <span>🔥</span>
     </div>
-  </div>
 
-  <div class="row">
-    <label for="email">Elektron pochta</label>
-    <input type="email" id="email" name="email" placeholder="name@example.com">
-  </div>
+    <div class="product-grid">
 
-  <div class="row">
-    <label for="pass">Parol</label>
-    <input type="password" id="pass" name="password" placeholder="••••••••">
-  </div>
+      <!-- PRODUCT 1 -->
+      <article class="product-card glass">
+        <div class="product-photo">
+          <img src="./Rose Gold Feminine Calligraphy Monogram Logo(50) 1.png" alt="Ice cream bowl">
+        </div>
 
-  <div class="row">
-    <span class="label">Jinsi</span>
-    <div class="chips">
-      <input type="radio" id="male" name="gender" value="male"><label for="male">Erkak</label>
-      <input type="radio" id="female" name="gender" value="female"><label for="female">Ayol</label>
+        <div class="product-info">
+          <h2>Banana Soft Cream</h2>
+          <p class="order-label">Order Type:</p>
+
+          <div class="order-options">
+            <button class="choice active">On Table</button>
+            <button class="choice">Delivery</button>
+          </div>
+
+          <div class="price-row">
+            <strong>Rs. 250/-</strong>
+            <div class="quantity">
+              <button class="minus">−</button>
+              <span>02</span>
+              <button class="plus">＋</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 2 -->
+      <article class="product-card light">
+        <div class="product-photo">
+          <img src="./Rose Gold Feminine Calligraphy Monogram Logo(50) 2.png" alt="Chocolate ice cream">
+        </div>
+
+        <div class="product-info">
+          <h2>Banana Soft Cream</h2>
+          <p class="order-label">Order Type:</p>
+
+          <div class="order-options">
+            <button class="choice active">On Table</button>
+            <button class="choice">Delivery</button>
+          </div>
+
+          <div class="price-row">
+            <strong>Rs. 250/-</strong>
+            <div class="quantity">
+              <button class="minus">−</button>
+              <span>02</span>
+              <button class="plus">＋</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 3 -->
+      <article class="product-card glass">
+        <div class="product-photo">
+          <img src="./Rose Gold Feminine Calligraphy Monogram Logo(50) 3.png" alt="Pink ice cream cone">
+        </div>
+
+        <div class="product-info">
+          <h2>Banana Soft Cream</h2>
+          <p class="order-label">Order Type:</p>
+
+          <div class="order-options">
+            <button class="choice active">On Table</button>
+            <button class="choice">Delivery</button>
+          </div>
+
+          <div class="price-row">
+            <strong>Rs. 250/-</strong>
+            <div class="quantity">
+              <button class="minus">−</button>
+              <span>02</span>
+              <button class="plus">＋</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCT 4 -->
+      <article class="product-card glass">
+        <div class="product-photo">
+          <img src="./Rose Gold Feminine Calligraphy Monogram Logo(50) 4.png" alt="Purple berry ice cream">
+        </div>
+
+        <div class="product-info">
+          <h2>Banana Soft Cream</h2>
+          <p class="order-label">Order Type:</p>
+
+          <div class="order-options">
+            <button class="choice active">On Table</button>
+            <button class="choice">Delivery</button>
+          </div>
+
+          <div class="price-row">
+            <strong>Rs. 250/-</strong>
+            <div class="quantity">
+              <button class="minus">−</button>
+              <span>02</span>
+              <button class="plus">＋</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
     </div>
-  </div>
+  </section>
 
-  <div class="row">
-    <span class="label">Yoʻnalish</span>
-    <div class="chips">
-      <input type="checkbox" id="cse" name="dept" value="CSE"><label for="cse">CSE</label>
-      <input type="checkbox" id="it" name="dept" value="IT"><label for="it">IT</label>
-      <input type="checkbox" id="ece" name="dept" value="ECE"><label for="ece">ECE</label>
-      <input type="checkbox" id="civil" name="dept" value="Civil"><label for="civil">Qurilish</label>
-      <input type="checkbox" id="mech" name="dept" value="Mech"><label for="mech">Mexanika</label>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© Dropcream.com all right reserve</span>
+
+    <div class="socials">
+      <a href="#">G</a>
+      <a href="#">f</a>
+      <a href="#">♥</a>
+      <a href="#">◎</a>
     </div>
-  </div>
+  </footer>
 
-  <div class="row">
-    <label for="course">Kurs</label>
-    <select id="course" name="course">
-      <option value="">Joriy kursni tanlang</option>
-      <option>1-kurs</option>
-      <option>2-kurs</option>
-      <option>3-kurs</option>
-      <option>4-kurs</option>
-      <option>Magistratura</option>
-    </select>
-  </div>
+</main>
 
-  <div class="row">
-    <span class="label">Talaba rasmi</span>
-    <label class="upload" for="photo">
-      <b>Fayl tanlash</b><span id="fileName">Fayl tanlanmagan</span>
-    </label>
-    <input type="file" id="photo" name="photo" accept="image/*">
-  </div>
-
-  <div class="row">
-    <label for="city">Shahar</label>
-    <input type="text" id="city" name="city">
-  </div>
-
-  <div class="row top">
-    <label for="address">Manzil</label>
-    <textarea id="address" name="address"></textarea>
-  </div>
-
-  <div class="actions">
-    <button type="submit">Roʻyxatdan oʻtish</button>
-  </div>
-</form>
-
-<audio id="bgm" src="music.mp3" loop preload="none"></audio>
-<div class="menu" id="menu" role="menu">
-  <div class="title">Musiqani tanlang</div>
-  <button type="button" class="opt" data-style="tungi">🌙 Tungi orzu<small>Sokin, orzuli ambient</small></button>
-  <button type="button" class="opt" data-style="lofi">☕ Yengil lo-fi<small>Iliq akkordlar va yumshoq ritm</small></button>
-  <button type="button" class="opt" data-style="quyosh">☀️ Quyosh nuri<small>Quvnoq va tetik kayfiyat</small></button>
-  <button type="button" class="opt" data-style="yomgir">🌧️ Sokin yomgʻir<small>Juda tinch, diqqat uchun</small></button>
-  <button type="button" class="opt" data-style="file">📁 Oʻz musiqam<small>music.mp3 fayli</small></button>
-  <button type="button" class="opt" data-style="off">🔇 Oʻchirish</button>
-</div>
-<button type="button" class="music" id="musicBtn" aria-label="Musiqa menyusi">🎵</button>
-
+<!-- JAVASCRIPT -->
 <script>
-  const bgm = document.getElementById("bgm");
-  const btn = document.getElementById("musicBtn");
-  const menu = document.getElementById("menu");
-  bgm.volume = 0.4;
-  let synth = null;
+  // ORDER TYPE
+  document.querySelectorAll('.product-card').forEach(card => {
 
-  const STYLES = {
-    tungi: { ms: 6000, arp: 750, lp: 1400, dur: 8, oct: 2, dly: .45, fb: .4, beat: false, types: ["sine","triangle"],
-      ch: [[110,164.81,196,246.94,261.63],[87.31,130.81,164.81,220,261.63],[130.81,196,246.94,293.66,329.63],[98,146.83,220,246.94,293.66]] },
-    lofi: { ms: 4800, arp: 600, lp: 900, dur: 6, oct: 2, dly: .3, fb: .35, beat: true, types: ["triangle","sine"],
-      ch: [[73.42,146.83,174.61,220,261.63],[98,146.83,174.61,246.94,329.63],[65.41,130.81,196,246.94,293.66],[110,164.81,196,246.94,261.63]] },
-    quyosh: { ms: 4000, arp: 250, lp: 2800, dur: 5, oct: 2, dly: .25, fb: .3, beat: false, types: ["triangle","sine"],
-      ch: [[130.81,164.81,196,261.63,329.63],[98,146.83,196,246.94,293.66],[110,164.81,220,261.63,329.63],[87.31,130.81,174.61,220,261.63]] },
-    yomgir: { ms: 9000, arp: 1500, lp: 1100, dur: 12, oct: 4, dly: .7, fb: .55, beat: false, types: ["sine","sine"],
-      ch: [[82.41,123.47,164.81,196,246.94],[87.31,130.81,174.61,220,261.63]] }
-  };
+    card.querySelectorAll('.choice').forEach(button => {
+      button.addEventListener('click', () => {
+        card.querySelectorAll('.choice').forEach(item => {
+          item.classList.remove('active');
+        });
 
-  function startSynth(c) {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const master = ctx.createGain();
-    master.gain.value = 0;
-    master.gain.linearRampToValueAtTime(0.22, ctx.currentTime + 3);
-    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = c.lp;
-    const delay = ctx.createDelay(); delay.delayTime.value = c.dly;
-    const fb = ctx.createGain(); fb.gain.value = c.fb;
-    delay.connect(fb); fb.connect(delay);
-    lp.connect(master); lp.connect(delay); delay.connect(master);
-    master.connect(ctx.destination);
-
-    const nb = ctx.createBuffer(1, ctx.sampleRate * 0.1, ctx.sampleRate);
-    const nd = nb.getChannelData(0);
-    for (let k = 0; k < nd.length; k++) nd[k] = Math.random() * 2 - 1;
-
-    let i = 0, step = 0;
-    const env = (g, t, peak, a, end) => {
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(peak, t + a);
-      g.gain.linearRampToValueAtTime(0, t + end);
-    };
-    function pad(f, t) {
-      c.types.forEach((type, n) => {
-        const o = ctx.createOscillator(), g = ctx.createGain();
-        o.type = type; o.frequency.value = f; o.detune.value = n * 6;
-        env(g, t, 0.18, c.dur * 0.35, c.dur);
-        o.connect(g); g.connect(lp); o.start(t); o.stop(t + c.dur + 0.1);
+        button.classList.add('active');
       });
-    }
-    function pluck(f, t) {
-      const o = ctx.createOscillator(), g = ctx.createGain();
-      o.type = "sine"; o.frequency.value = f * c.oct;
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(0.25, t + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.001, t + (c.oct > 2 ? 3 : 1.4));
-      o.connect(g); g.connect(lp); o.start(t); o.stop(t + 3.1);
-    }
-    function kick(t) {
-      const o = ctx.createOscillator(), g = ctx.createGain();
-      o.frequency.setValueAtTime(120, t);
-      o.frequency.exponentialRampToValueAtTime(40, t + 0.25);
-      g.gain.setValueAtTime(0.6, t);
-      g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
-      o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.35);
-    }
-    function hat(t) {
-      const s = ctx.createBufferSource(), g = ctx.createGain(), hp = ctx.createBiquadFilter();
-      s.buffer = nb; hp.type = "highpass"; hp.frequency.value = 7000;
-      g.gain.setValueAtTime(0.12, t);
-      g.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
-      s.connect(hp); hp.connect(g); g.connect(master); s.start(t);
-    }
-    const chord = () => { const t = ctx.currentTime + 0.05; c.ch[i % c.ch.length].forEach(f => pad(f, t)); i++; };
-    const arp = () => {
-      const t = ctx.currentTime + 0.05, ch = c.ch[(i - 1 + c.ch.length) % c.ch.length];
-      pluck(ch[(step * 2) % ch.length], t);
-      if (c.beat) { if (step % 4 === 0) kick(t); if (step % 2 === 1) hat(t); }
-      step++;
-    };
-    chord();
-    const t1 = setInterval(chord, c.ms), t2 = setInterval(arp, c.arp);
-    return { stop() {
-      clearInterval(t1); clearInterval(t2);
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.6);
-      setTimeout(() => ctx.close(), 800);
-    } };
-  }
+    });
 
-  function stopAll() {
-    bgm.pause();
-    if (synth) { synth.stop(); synth = null; }
-  }
-  function setActive(name) {
-    menu.querySelectorAll(".opt").forEach(o => o.classList.toggle("active", o.dataset.style === name));
-    const playing = name && name !== "off";
-    btn.classList.toggle("playing", !!playing);
-    btn.textContent = playing ? "🔊" : "🎵";
-  }
+    // QUANTITY
+    const count = card.querySelector('.quantity span');
 
-  btn.addEventListener("click", () => menu.classList.toggle("open"));
-  menu.addEventListener("click", e => {
-    const o = e.target.closest(".opt");
-    if (!o) return;
-    const name = o.dataset.style;
-    stopAll();
-    if (name === "off") { setActive("off"); }
-    else if (name === "file") {
-      bgm.load();
-      bgm.play().then(() => setActive("file")).catch(() => {
-        setActive("off");
-        o.querySelector("small").textContent = "music.mp3 topilmadi";
-      });
-    } else { synth = startSynth(STYLES[name]); setActive(name); }
-    menu.classList.remove("open");
-  });
-  document.addEventListener("click", e => {
-    if (!menu.contains(e.target) && e.target !== btn) menu.classList.remove("open");
+    card.querySelector('.minus').addEventListener('click', () => {
+      count.textContent = String(
+        Math.max(1, Number(count.textContent) - 1)
+      ).padStart(2, '0');
+    });
+
+    card.querySelector('.plus').addEventListener('click', () => {
+      count.textContent = String(
+        Math.min(99, Number(count.textContent) + 1)
+      ).padStart(2, '0');
+    });
+
   });
 
-  document.getElementById("photo").addEventListener("change", e => {
-    document.getElementById("fileName").textContent =
-      e.target.files[0] ? e.target.files[0].name : "Fayl tanlanmagan";
+  // ICE CREAM TYPE
+  document.querySelectorAll('.type-icon').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.type-icon').forEach(item => {
+        item.classList.remove('selected');
+      });
+
+      button.classList.add('selected');
+    });
   });
 </script>
 
